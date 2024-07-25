@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './contactsOps';
-import { selectContacts, selectFilter } from './selectors';
+import { selectFilter } from './filtersSlice';
 
 const handlePending = state => {
   state.loading = true;
@@ -10,6 +10,10 @@ const handleRejected = (state, action) => {
   state.loading = false;
   state.error = action.payload;
 };
+
+export const getIsLoading = state => state.contacts.loading;
+export const getError = state => state.contacts.error;
+export const selectContacts = state => state.contacts.items;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
